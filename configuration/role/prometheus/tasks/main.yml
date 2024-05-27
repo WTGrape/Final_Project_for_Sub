@@ -1,0 +1,97 @@
+---
+# tasks file for prometheus
+
+- name: Create user for prometheus
+  user:
+    name: "{{ prometheus_user }}"  # Username
+    state: present  # Ensure the user is present
+    createhome: no  # Create the user's home directory
+    shell: /usr/sbin/nologin
+    append: yes
+  become: true
+
+- name: Create installation folder in etc
+  file:
+    path: "{{ prometheus_dest_dir }}"
+    state: directory
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_user }}"
+    mode: '0775'
+    recurse: yes
+
+- name: Create data folder
+  file:
+    path: "{{ prometheus_data_dir }}"
+    state: directory
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_user }}"
+    mode: '0775'
+    recurse: yes
+
+- name: Download/unarchive Packages for prometheus
+  unarchive:
+    src: "{{ prometheus_download_url }}"
+    dest: /tmp
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_user }}"
+    remote_src: yes
+    creates: "{{ prometheus_download_dir }}"
+
+- name: Copying the service binary for prometheus
+  copy:
+    src: "{{ prometheus_download_dir }}/{{ item }}"
+    dest: /usr/local/bin/
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_user }}"
+    mode: '0775'
+    remote_src: yes
+  with_items:
+    - prometheus
+    - promtool
+
+- name: Copying the console binary
+  copy:
+    src: "{{ prometheus_download_dir }}/{{ item }}"
+    dest: "{{ prometheus_dest_dir }}"
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_user }}"
+    mode: '0775'
+    remote_src: yes
+  with_items:
+    - consoles
+    - console_libraries
+
+- name: Removing the tar file of prometheus
+  file:
+    path: "{{ prometheus_download_dir }}"
+    state: absent
+
+- name: Create prometheus systemd service file
+  template:
+    src: templates/prometheus.service.j2
+    dest: "{{ service_dest_dir }}/prometheus.service"
+ 
+- name: prometheus args
+  template:
+    src: templates/prometheus.j2
+    dest: /etc/default/prometheus
+    mode: 0644
+    owner: root
+    group: root
+  notify: restart_prometheus
+
+- name: Copying the scrape config
+  template:
+    src: templates/prometheus.yml.j2
+    dest: "{{ prometheus_dest_dir }}/prometheus.yml"
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_user }}"
+    mode: '0775'
+
+- name: "start and enable service"
+#  when: copy_conf_status.changed == true or copy_status.changed == true
+  service:  
+    name: prometheus
+    state: restarted
+    enabled: yes
+    daemon_reload: yes

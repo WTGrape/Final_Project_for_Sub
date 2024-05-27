@@ -1,0 +1,40 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'test_dev_node'
+    ec2_sd_configs:
+      - region: 'ap-northeast-2'
+        port: 9100
+    relabel_configs:
+      - source_labels: [__meta_ec2_tag_eks_cluster_name]
+        regex: 'test_dev_node'
+        action: keep
+  - job_name: 'prod_was'
+    ec2_sd_configs:
+      - region: 'ap-northeast-2'
+        port: 9100
+    relabel_configs:
+      - source_labels: [__meta_ec2_tag_eks_cluster_name]
+        regex: 'prod_was'
+        action: keep
+  - job_name: 'test_dev_kube_state'
+    ec2_sd_configs:
+      - region: 'ap-northeast-2'
+        port: 31569
+    relabel_configs:
+      - source_labels: [__meta_ec2_tag_eks_cluster_name]
+        regex: 'test_dev_kube_state'
+        action: keep
+  - job_name: 'prod_was'
+    ec2_sd_configs:
+      - region: 'ap-northeast-2'
+        port: 31569
+    relabel_configs:
+      - source_labels: [__meta_ec2_tag_eks_cluster_name]
+        regex: 'prod_was'
+        action: keep

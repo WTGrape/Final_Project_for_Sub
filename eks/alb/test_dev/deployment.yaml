@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapplication
+  labels:
+    app: webapplication
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapplication
+  template:
+    metadata:
+      labels:
+        app: webapplication
+    spec:
+      containers:
+      - name: webapplication
+        image: 707677861059.dkr.ecr.ap-northeast-2.amazonaws.com/nadeuri:c98c3789484bb1b6cc21799899d50d4f7c953942
+        ports:
+        - containerPort: 8080
+        env:
+        - name: RDS_HOST
+          value: rds-service

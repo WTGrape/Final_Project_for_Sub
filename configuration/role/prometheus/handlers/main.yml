@@ -1,0 +1,18 @@
+---
+- name: restart_prometheus
+  systemd:
+    name: prometheus
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+- name: Reload Prometheus
+  uri:
+    url: http://{{ inventory_hostname }}:9090/  # Use a variable for hostname
+    method: POST
+    status_code: 200
+  register: prometheus_reload  # Register the result
+
+- name: Show error if Prometheus reload fails
+  debug:
+    msg: "Failed to reload Prometheus: {{ prometheus_reload.msg }}"
+  when: prometheus_reload.status != 200

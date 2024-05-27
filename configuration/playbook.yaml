@@ -1,0 +1,16 @@
+---
+- name: install prometheus & grafana
+  hosts: shared-int-lb
+  vars:
+    ansible_ssh_common_args: 
+      -o ProxyCommand="ssh 
+      -o StrictHostKeyChecking=no 
+      -o UserKnownHostsFile=~/.ssh/prometheus_hosts
+      -i ~/.ssh/terraform-key
+      -p 9999
+      -W %h:1000 ec2-user@{{ groups['dev-dmz-nlb'][0] }}"
+  become: True  
+  gather_facts: yes
+  roles: 
+    - role/prometheus
+    - role/grafana

@@ -1,0 +1,4 @@
+---
+# vars file for grafana
+grafana_user: grafana
+repo_dest_dir: /etc/yum.repos.d/

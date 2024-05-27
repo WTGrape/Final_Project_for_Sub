@@ -1,0 +1,42 @@
+---
+# tasks file for grafana
+- name: Create user for Grafana
+  user:
+    name: "{{ grafana_user }}"  # Username
+    state: present  # Ensure the user is present
+    createhome: no  # Create the user's home directory
+    shell: /usr/sbin/nologin
+    append: yes
+  become: true
+
+- name: Copying the repo
+  template:
+    src: templates/grafana.repo.j2
+    dest: "{{ repo_dest_dir }}/grafana.repo"
+    owner: "root"
+    group: "root"
+    mode: '0644'
+
+- name: Install Grafana
+  ansible.builtin.yum:
+    name: grafana
+    state: present
+
+- name: Daemon reload
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+
+- name: Start the Grafana
+  ansible.builtin.systemd_service:
+    name: grafana-server
+    state: started
+    enabled: yes
+
+- name: "start and enable service"
+#   when: copy_conf_status.changed == true or copy_status.changed == true
+  ansible.builtin.systemd_service:  
+    name: grafana-server
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+
