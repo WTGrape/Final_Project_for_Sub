@@ -48,6 +48,8 @@ $ argocd login localhost:8080
 #Password: 위 secret으로 획득한 비밀번호
 $ argocd account update-password
 
+- dev-dmz nlb 와 연결
+ingrtess 로 생성된 LB 의 ENI private 를 dev-dmz nlb 의 443 port target group에 대상 등록
 ### 5. configuration
 - 
 
