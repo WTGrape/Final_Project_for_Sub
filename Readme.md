@@ -6,7 +6,12 @@
 - tfstate 관리를 위한 s3 생성
 
 ### 1. networkings
+- nexus 접속
+ssh -i %{key file} -p 9999 ec2-user@"${dev-dmz-nlb dns_name}"
+vim ~/.ssh/terraform-key ;
+chmod 600 .ssh/terraform-key;
 - eks-master (shared_int nlb 3000 port) 접속 후 prod 유저 생성 및 sudo password 생략
+ssh -i %{key file} -p 3000 ec2-user@"${shared-int-lb dns_name}"
 sudo useradd prod -G wheel
 sudo vim /etc/sudoers           
 sudo cp -r /home/ec2-user/.ssh /home/prod/.
