@@ -131,7 +131,7 @@ resource "aws_kms_key" "sk108_kms" {
 }
 
 resource "aws_kms_alias" "sk108_kms" {
-    name = "alias/nadri-kms-2"
+    name = "alias/nadri-kms"
     target_key_id = aws_kms_key.sk108_kms.key_id
 }
 
