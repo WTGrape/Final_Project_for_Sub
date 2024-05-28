@@ -127,11 +127,6 @@ resource "aws_kinesis_firehose_delivery_stream" "wafs-kinesis-firehose" {
 ###
 # 3. Wafs to firehose connection
 ###
-# resource "aws_wafv2_web_acl_logging_configuration" "cf-wacl" {
-#   depends_on = [aws_kinesis_firehose_delivery_stream.wafs-kinesis-firehose["cf-wacl"]]
-#   log_destination_configs = [aws_kinesis_firehose_delivery_stream.wafs-kinesis-firehose["cf-wacl"].arn]
-#   resource_arn            = data.aws_wafv2_web_acl.cf_wacl.arn
-# }
 
 resource "aws_wafv2_web_acl_logging_configuration" "alb-wacl" {
   depends_on = [aws_kinesis_firehose_delivery_stream.wafs-kinesis-firehose["alb-wacl"]]

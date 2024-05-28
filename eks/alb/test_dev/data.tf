@@ -31,20 +31,3 @@ data "http" "iam_policy" {
 data "aws_db_instance" "test_dev" {
   db_instance_identifier = "test-dev-db"
 }
-###
-# security group
-###
-# pod security group 에서 사용하려 했었다.
-# 현재 사용하는 node instance type 에서는 지원하지 않는다.
-# data "aws_security_group" "test_dev_pod_security_group" {
-#     filter {
-#       name = "tag:Name"
-#       values = ["test_dev_pod_db_sg"]
-#     }
-# }
-# data "aws_security_group" "prod_pod_security_group" {
-#     filter {
-#       name = "tag:Name"
-#       values = ["prod_pod_db_sg"]
-#     }
-# }

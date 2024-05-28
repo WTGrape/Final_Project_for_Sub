@@ -108,28 +108,3 @@ resource "aws_cloudfront_cache_policy" "user_dmz_cache_policy" {
     }
   }
 }
-
-###################### c. cloudfront headers policy ############################
-
-# resource "aws_cloudfront_response_headers_policy" "nadri" {
-#   name    = "nadri-policy"
-#   comment = "nadri-project-com_policy"
-
-#   cors_config {
-#     access_control_allow_credentials = false
-
-#     access_control_allow_headers {
-#       items = ["*"]
-#     }
-
-#     access_control_allow_methods {
-#       items = ["GET", "HEAD"]
-#     }
-
-#     access_control_allow_origins {
-#       items = ["*.nadri-project.com"]
-#     }
-
-#     origin_override = true
-#   }
-# }

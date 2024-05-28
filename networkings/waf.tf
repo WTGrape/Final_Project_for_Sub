@@ -40,23 +40,13 @@ resource "aws_wafv2_rule_group" "cf_web_acl_rule_group" {
           }
         }
         search_string         = "iphone"
-        positional_constraint = "CONTAINS"
-        # rule_action_override {
-        #   action_to_use{
-        #     captcha {}
-        #   }  
-        # }        
+        positional_constraint = "CONTAINS"     
         text_transformation {
           priority = 0
           type     = "LOWERCASE"
         }
       }
     }
-    # captcha_config {
-    #   immunity_time_property {
-    #     immunity_time = 120
-    #   }
-    # }
   
     visibility_config {
       cloudwatch_metrics_enabled = true
@@ -141,30 +131,6 @@ resource "aws_wafv2_rule_group" "alb_web_acl_rule_group" {
       sampled_requests_enabled   = true
     }
   }  
-  # rule {
-  #   name     = "allow_kr"
-  #   priority = 20
-
-  #   action {
-  #     block {}
-  #   }
-  #   # 국가 코드가 KR이 아니면 차단
-  #   statement{
-  #     not_statement{
-  #       statement {
-  #         geo_match_statement {
-  #           country_codes = ["KR"]
-  #         }
-  #       }
-  #     }
-  #   }
-
-  #   visibility_config {
-  #     cloudwatch_metrics_enabled = true
-  #     metric_name                = "allow_kr"
-  #     sampled_requests_enabled   = true
-  #   }
-  # }  
 }
 
 ##############################################################################
@@ -405,14 +371,12 @@ resource "aws_wafv2_web_acl" "alb_wacl" {
 
 resource "aws_wafv2_web_acl_association" "wacl_user_lb_asso" { 
   count               = length(local.azs)
-  # local.user_dmz_alb = tolist(data.aws_lb.user_alb_arn[*].arn) -> aws_lb.user_dmz_proxy_lb[count.index] 대체가능할듯?
   resource_arn        = aws_lb.user_dmz_alb[count.index].arn
   web_acl_arn         = aws_wafv2_web_acl.alb_wacl.arn
 }
 
 resource "aws_wafv2_web_acl_association" "wacl_dev_lb_asso" { 
   count               = length(local.azs)
-  # local.dev_dmz_alb = tolist(data.aws_lb.dev_alb_arn[*].arn) -> aws_lb.dev_dmz_proxy_lb[count.index] 대체가능할듯?
   resource_arn        = aws_lb.dev_dmz_alb[count.index].arn
   web_acl_arn         = aws_wafv2_web_acl.alb_wacl.arn
 }

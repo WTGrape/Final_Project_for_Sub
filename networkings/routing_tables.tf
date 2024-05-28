@@ -39,10 +39,6 @@ resource "aws_route_table" "dev_dmz_nwf_rt" {
     cidr_block          = "0.0.0.0/0"
     gateway_id          = aws_internet_gateway.dev_dmz_igw.id
   }
-  # route {
-  #   cidr_block          = "10.0.0.0/8"
-  #   transit_gateway_id  = aws_ec2_transit_gateway.main.id
-  # }
 
 
   tags = {
@@ -418,11 +414,6 @@ resource "aws_route_table" "user_dmz_nwf_rt" {
     cidr_block          = "0.0.0.0/0"
     gateway_id          = aws_internet_gateway.user_dmz_igw.id
   }
-  # route {
-  #   cidr_block          = "10.0.0.0/8"
-  #   transit_gateway_id  = aws_ec2_transit_gateway.main.id
-  # }
-
 
   tags = {
     Name                = "${local.user_dmz_name}-nwf-RT"

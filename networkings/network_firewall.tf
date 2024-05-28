@@ -36,105 +36,11 @@ resource "aws_networkfirewall_rule_group" "nwf_rule_group" {
             # }
             }     
           }
-        }
-        # for nexus no.2
-        # stateless_rule {
-        #   priority = 2
-        #   rule_definition {
-        #     actions = ["aws:pass"]
-        #     match_attributes {
-        #       source {
-        #         address_definition = "213.0.113.0/24"
-        #       }
-        #       source_port {
-        #         from_port = 8888
-        #         to_port   = 8888
-        #       }
-        #       destination {
-        #         address_definition = aws_subnet.subnet_dev_dmz_pub[5].cidr_block
-        #       }
-        #       destination_port {
-        #         from_port = 8888
-        #         to_port   = 8888
-        #       }
-        #       protocols = [6]              
-        #     }     
-        #   }
-        # }            
+        }           
       }      
     }
   }
 }        
-
-####################### b. allow local rule ########################
-# resource "aws_networkfirewall_rule_group" "allow-local" {
-#   capacity = 1000
-#   name     = "allow-local-ranges"
-#   type     = "STATELESS"
-#   rule_group {
-#     rules_source {
-#       stateless_rules_and_custom_actions {
-#         stateless_rule {
-#           priority = 5
-#           rule_definition {
-#             actions = ["aws:pass"]
-#             match_attributes {
-#               source {
-#                 address_definition = "10.0.0.0/8"
-#               }
-#               # source {
-#               #   address_definition = "192.168.0.0/16"
-#               # }
-#             }
-#           }
-#         }
-#       }
-#     }
-#   }
-# }
-
-####################### c. deny all http ########################
-# resource "aws_networkfirewall_rule_group" "deny-http" {
-#   capacity = 100
-#   name     = "deny-http"
-#   type     = "STATEFUL"
-#   rule_group {
-#     rules_source {
-#       stateful_rule {
-#         action = "DROP"
-#         header {
-#           destination      = aws_subnet.user_dmz_lb[0].cidr_block
-#           destination_port = 80
-#           direction        = "ANY"
-#           protocol         = "HTTP"
-#           source           = "0.0.0.0/0"
-#           source_port      = 80
-#         }
-#         rule_option {
-#           keyword = "sid:1"
-#         }
-#       }
-#       stateful_rule {
-#         action = "DROP"
-#         header {
-#           destination      = aws_subnet.user_dmz_lb[1].cidr_block
-#           destination_port = 80
-#           direction        = "ANY"
-#           protocol         = "HTTP"
-#           source           = "0.0.0.0/0"
-#           source_port      = 80
-#         }
-#         rule_option {
-#           keyword = "sid:2"
-#         }
-#       }      
-#     }
-#   }
-
-#   tags = {
-#     "Name" = "deny-http"
-#   }
-# }
 
 ####################### d. deny all ssh ########################
 resource "aws_networkfirewall_rule_group" "deny-ssh" {
@@ -279,8 +185,3 @@ resource "aws_networkfirewall_firewall" "dev_network_firewall" {
     Name                             = "${local.dev_dmz_name}-nwf" 
   }
 }  
-#   timeouts {
-#     create = "20m"
-#     update = "20m"
-#     delete = "20m"
-#   }

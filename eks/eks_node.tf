@@ -11,9 +11,6 @@ resource "aws_eks_node_group" "test_dev_was" {
     max_size     = 6 
     min_size     = 2 
   }
-  # remote_access {
-  #   ec2_ssh_key = data.aws_key_pair.example.key_name
-  # }
   update_config { 
     max_unavailable = 1 
   } 

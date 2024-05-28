@@ -76,10 +76,6 @@ resource "aws_eks_cluster" "prod_was" {
   ] 
   enabled_cluster_log_types = ["api", "audit"] 
 } 
-# resource "aws_cloudwatch_log_group" "prod_was" { 
-#   name              = "/aws/eks/prod_was/cluster" 
-#   retention_in_days = 7 
-# } 
 data "tls_certificate" "prod_was" { 
   url = aws_eks_cluster.prod_was.identity[0].oidc[0].issuer 
 }

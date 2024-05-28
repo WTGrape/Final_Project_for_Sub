@@ -72,14 +72,3 @@ resource "aws_opensearch_vpc_endpoint" "log-opensearch" {
     subnet_ids         = data.aws_subnets.shared_int.ids
   }
 }
-# ###
-# # Console Monitoring IAM policy attachment (On Public level)
-# ###
-# data "aws_iam_user" "sk108-team" {
-#   user_name = "sk108-team"
-# }
-
-# resource "aws_iam_user_policy_attachment" "user-attach" {
-#   user       = data.aws_iam_user.sk108-team.user_name
-#   policy_arn = "arn:aws:iam::aws:policy/AmazonOpenSearchServiceFullAccess"
-# }
