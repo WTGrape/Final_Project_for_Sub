@@ -12,7 +12,7 @@ scrape_configs:
         port: 9100
     relabel_configs:
       - source_labels: [__meta_ec2_tag_eks_cluster_name]
-        regex: 'test_dev_node'
+        regex: 'test_dev_was'
         action: keep
   - job_name: 'prod_was'
     ec2_sd_configs:
@@ -28,7 +28,7 @@ scrape_configs:
         port: 31569
     relabel_configs:
       - source_labels: [__meta_ec2_tag_eks_cluster_name]
-        regex: 'test_dev_node'
+        regex: 'test_dev_was'
         action: keep
   - job_name: 'prod_kube_state'
     ec2_sd_configs:

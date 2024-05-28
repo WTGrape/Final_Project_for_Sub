@@ -54,7 +54,9 @@ kubectl apply 해준다.
 ingrtess 로 생성된 LB 의 ENI private 를 dev-dmz nlb 의 443 port target group에 대상 등록
 https://dev-dmz_nlb_dnsname 접속 후 argo-cd 설정 마무리
 
-### 5. configuration terraform apply
+### 5. configuration
+- ansible dynamic inventory
+chmod +x aws_lb_inventory.py 후 terraform apply 할 것
 - prometheus
 dev-dmz_nlb_dnsname:8888
 - grafana
