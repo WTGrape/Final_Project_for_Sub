@@ -24,6 +24,7 @@ resource "aws_instance" "shared_int" {
     [ aws_security_group.shared_int_default.id ],
     [ for k, v in var.shared_int : aws_security_group.shared_int_prom-grafa.id if lookup(v, "svc_port", null) != null]
   )
+  user_data = "${file("../files/${each.value.name}.sh")}"
   iam_instance_profile = each.value.svc_port != null ? aws_iam_instance_profile.prometheus_profile.name : null
   key_name = aws_key_pair.terraform_key.key_name
   subnet_id = aws_subnet.shared_int[0].id
