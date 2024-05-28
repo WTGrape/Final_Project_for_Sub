@@ -2,14 +2,16 @@
 
 ##  작업 순서
 
-### 0. tfstate_s3.tf
-- tfstate 관리를 위한 s3 생성
-
+### 0. tfstate_s3.tf 및 key 준비
+- tfstate 관리 s3 생성을 위해 tfstate_s3.tf terraform 실행
+- ~/.ssh/ 에 keypair 에서 사용할 public & private key(terraform-key) 추가
 ### 1. networkings
+- 네트워크 인프라 구축을 위해 networkings directory 에서 terraform 실행
 - nexus 접속
 ssh -i %{key file} -p 9999 ec2-user@"${dev-dmz-nlb dns_name}"
 vim ~/.ssh/terraform-key ;
 chmod 600 .ssh/terraform-key;
+
 - eks-master (shared_int nlb 3000 port) 접속 후 prod 유저 생성 및 sudo password 생략
 ssh -i %{key file} -p 3000 ec2-user@"${shared-int-lb dns_name}"
 sudo useradd prod -G wheel
@@ -23,11 +25,14 @@ prod-rds 와 test-dev-rds 에 dummy data 추가
 files/schema.sql & files/fesivalInfo.sql 참조
 
 ### 3. eks_control 접속 후 alb controller 생성
+- eks 및 logging 구축을 위해 eks directory 에서 terraform 실행
 - test-dev 영역
+ssh -i %{key file} -p 3000 ec2-user@"${shared-int-lb dns_name}"
 aws eks update-kubeconfig --name test_dev_was 후 terraform apply
 rds_service.yaml 에 rds endpoint 추가 후 kubectl apply
 
 - prod 영역
+ssh -i %{key file} -p 3000 prod@"${shared-int-lb dns_name}"
 aws eks update-kubeconfig --name prod_was 후 terraform apply
 argo_ingress.yaml 에 terraform output 으로 나온 ACM ARN 추가 후 kubectl apply 는 아래 argo cd 작업 완료 후 해준다.
 
