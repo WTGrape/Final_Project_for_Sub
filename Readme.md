@@ -17,19 +17,6 @@ sudo vim /etc/sudoers
 sudo cp -r /home/ec2-user/.ssh /home/prod/.
 sudo chown prod:prod -R /home/prod
 
-- kubectl & terraform install
-sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
-sudo dnf repolist 
-sudo dnf install terraform -y 
-sudo yum --showduplicate list terraform 
-sudo rpm -qa | grep terraform 
-curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.27.1/2023-04-19/bin/linux/amd64/kubectl
-chmod +x ./kubectl
-sudo cp kubectl /usr/bin/
-sudo rm -rf kubectl
-sudo terraform version
-kubectl version --client
-
 ### 2.db dummy data 추가
 - db-control (shared_int nlb 2000 port) 접속 후 dummy 추가
 prod-rds 와 test-dev-rds 에 dummy data 추가 
