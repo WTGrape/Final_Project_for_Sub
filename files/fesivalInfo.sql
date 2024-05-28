@@ -1,20 +1,3 @@
--- --------------------------------------------------------
--- 호스트:                          127.0.0.1
--- 서버 버전:                        10.4.33-MariaDB - mariadb.org binary distribution
--- 서버 OS:                        Win64
--- HeidiSQL 버전:                  12.6.0.6765
--- --------------------------------------------------------
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
--- 테이블 데이터 nadeuri.xfestivalinfo:~170 rows (대략적) 내보내기
 use nadeuri;
 INSERT INTO `xfestivalInfo` (`id`, `title`, `tel`, `addr1`, `addr2`, `event_start_date`, `event_end_date`, `mapx`, `mapy`, `first_image`) VALUES
 	(1262, '여수 야경불꽃크루즈', '1522-8905', '전라남도 여수시 돌산읍 돌산로 3617-18', '', '20240101', '20241231', '127.7369794626', '34.7297302429', 'http://tong.visitkorea.or.kr/cms/resource/78/3084378_image2_1.jpg'),
@@ -152,9 +135,3 @@ INSERT INTO `xfestivalInfo` (`id`, `title`, `tel`, `addr1`, `addr2`, `event_star
 	(1394, '청주시 도시농업 페스티벌', '043-201-3944', '충청북도 청주시 상당구 단재로 480-2 (지북동)', '', '20240503', '20240506', '127.5036398138', '36.5873906011', 'http://tong.visitkorea.or.kr/cms/resource/92/3112192_image2_1.jpg'),
 	(1395, '청춘양구 곰취축제', '010-2708-9172', '강원특별자치도 양구군 양구읍 상리', '양구 레포츠공원 일원', '20240503', '20240506', '127.9822526512', '38.1048128910', 'http://tong.visitkorea.or.kr/cms/resource/64/3112364_image2_1.jpg'),
 	(1396, '태안 빛축제', '041-675-9200', '충청남도 태안군 남면 마검포길 200', '네이처월드', '20230101', '20241231', '126.2998807800', '36.6151330244', 'http://tong.visitkorea.or.kr/cms/resource/24/3073224_image2_1.jpg');
-
-/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;

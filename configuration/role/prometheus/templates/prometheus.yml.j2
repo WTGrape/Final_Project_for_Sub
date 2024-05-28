@@ -28,9 +28,9 @@ scrape_configs:
         port: 31569
     relabel_configs:
       - source_labels: [__meta_ec2_tag_eks_cluster_name]
-        regex: 'test_dev_kube_state'
+        regex: 'test_dev_node'
         action: keep
-  - job_name: 'prod_was'
+  - job_name: 'prod_kube_state'
     ec2_sd_configs:
       - region: 'ap-northeast-2'
         port: 31569
