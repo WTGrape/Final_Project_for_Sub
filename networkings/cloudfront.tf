@@ -84,7 +84,7 @@ resource "aws_cloudfront_distribution" "user_dmz_alb_cf" {
 resource "aws_cloudfront_cache_policy" "user_dmz_cache_policy" {
   name        = "user-dmz-policy"
   comment     = "user-dmz-policy"
-  default_ttl = 1800
+  default_ttl = 0
   max_ttl     = 21600
   min_ttl     = 0
   parameters_in_cache_key_and_forwarded_to_origin {
@@ -97,7 +97,7 @@ resource "aws_cloudfront_cache_policy" "user_dmz_cache_policy" {
     headers_config {
       header_behavior = "whitelist"
       headers {
-        items = ["Accept"]
+        items = ["Accept","Cache-Control"]
       }
     }
     query_strings_config {
