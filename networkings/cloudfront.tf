@@ -95,7 +95,7 @@ resource "aws_cloudfront_cache_policy" "user_dmz_cache_policy" {
       }
     }
     headers_config {
-      header_behavior = "none"
+      header_behavior = "whitelist"
       headers {
         items = ["Accept"]
       }
